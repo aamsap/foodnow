@@ -1,0 +1,203 @@
+@use './base.scss' as *;
+
+#app {
+  max-width: 1920px;
+}
+
+.navbar {
+  height: 80px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin: $margin-base;
+
+  .navbar--logo{
+    height: 30px;
+  }
+  .navbar--menu{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+    .navbar--menu-item{
+      list-style-type: none;
+      display:inline;
+      margin: 10px;
+
+      
+    }
+    .navbar--menu-item-selected{
+      a{
+        color: $color-orange;
+      }
+    }
+  }
+  .navbar--auth{
+    display: flex;
+    
+
+    .navbar--auth-item{
+    
+      margin: 10px 20px 10px 20px;
+      
+    }
+  }
+}
+
+.hero{
+  position: absolute;
+  top: 25%;
+  width: 100%;
+}
+
+.content{
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .content--order{
+    flex-grow: 8;
+    .content--order-pizza{
+      margin-bottom: 100px;
+    }
+  }
+  .content--payment{
+    flex: 0 0 300px;
+  }
+}
+
+.pizza{
+  width: 285px;
+  .pizza--card{
+    height: 155px;
+    border-radius: 10px;
+    border: 1px solid rgba($color: $color-grey, $alpha: 0.1);
+    display: flex;
+    align-items: center;
+    
+    .pizza--card-picture{
+      img{
+          transition: 0.3s ease-in-out;
+          margin: 25px 20px 15px 20px;
+          width: 110px;
+        }
+    }
+    .pizza--card-label{
+      .pizza--card-label-name{
+        font-weight: bold;
+      }
+      .pizza--card-label-price{
+        span{
+          display: none;
+          text-decoration: line-through;
+          color: rgba($color: $color-grey, $alpha: 0.5);
+        }
+        .discounted{
+          display: inline;
+        }
+      }
+    }
+
+    &.discounted{
+      background-image: url("./img/ribbon.svg");
+      background-repeat: no-repeat;
+      background-size: 100px;
+      background-position: top right;
+      
+    }
+    &.selected{
+      background-color: $color-orange;
+      &:hover{
+        background-color: $color-orange;
+      }
+    }
+      
+    &:hover{
+      background-color: rgba($color: $color-orange, $alpha: 0.3);
+      img{
+        rotate: 15deg;
+      }
+    }
+  }
+}
+
+.custom{
+  margin-bottom: 25px;
+  .custom--label{
+    font-size: $font-size-h3;
+    font-weight: bold;
+    margin-bottom: 10px;;
+  }
+}
+
+.toppings{
+  float: left;  
+  margin: 20px 20px 0px 0px;
+  text-align: center;
+  padding: 8px;
+  cursor: pointer;
+  font-size: $font-size-link;
+  font-weight: bold;
+  height: 40px;
+  width: 125px;
+    //background-color: $color-orange;
+  border: 1px solid rgba($color: $color-grey, $alpha: 0.5);
+  border-radius: 40px;
+
+  &:hover{
+    border: 1px solid $color-orange;
+    color:$color-orange;
+  }
+
+  &.disabled{
+    background-color: rgba($color: $color-grey, $alpha: 0.1);
+    border: none;
+    color: rgba($color: $color-grey, $alpha: 0.5);
+  }
+
+  &.selected{
+    background-color: rgba($color: $color-orange, $alpha: 0.3);
+    border: 1px solid $color-orange;
+    color: $color-orange;
+  }
+
+}
+
+.card{
+  width: 100%;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05) ;
+  padding: 20px;
+  
+
+  .card--summary{
+    
+    .card--summary-item{
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      
+      .card--summary-item-label{
+        color: rgba(0, 0, 0, 0.5);
+        
+      }
+      .card--summary-item-total{
+        font-size: $font-size-h3;
+      }
+    }
+  }
+  
+  .card--button{
+    button{
+      width: 100%;
+    }
+  }
+
+}
+
+
+
+

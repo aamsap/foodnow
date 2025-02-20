@@ -1,0 +1,259 @@
+
+$color-white: #F8F8F6;
+$color-black: #333333;
+$color-orange: #e77e23;
+$color-orange-dark: #c16515;
+$color-grey: #4d4d4d;
+
+$font-size-normal:15px;
+$font-size-link:14px;
+$font-size-h1: 70px;
+$font-size-h2: 35px;
+$font-size-h3: 18px;
+
+$margin-base: 0 100px 0 100px;
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: $color-black;
+  background: $color-white;
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    'Open Sans',sans-serif;
+  font-size: $font-size-normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.header{
+  background-image: url("../assets/img/hero.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 550px;
+  text-align: center;  
+}
+
+.container{
+  height: fit-content;
+  margin:$margin-base;
+}
+
+.footer{
+  margin:$margin-base;
+  display: flex;
+
+
+  .footer--section{
+    width: 25%;
+    padding-top: 40px;
+
+    .footer--section-image{
+      height: 30px;
+      margin-bottom: 30px;
+    }
+    .footer--section-icons{
+      display: flex;
+      .icon{
+        width: 35px;
+        height: 35px;
+        border: 1px solid $color-orange;
+        margin-right:10px;
+        border-radius: 100%;
+        &.fb{
+          background-image: url("./img/icons/facebook.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 10px;
+        }
+        &.ig{
+          background-image: url("./img/icons/instagram.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 18px;
+        }
+        &.yt{
+          background-image: url("./img/icons/youtube.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 18px;
+        }
+        &:hover{
+          background-color: rgba($color: $color-orange, $alpha: .2);
+        }
+      }
+    }
+    .footer--section-nav{
+      display: flex;
+      flex-wrap: wrap;
+      
+      .route{
+        width: 95px;
+        height: 20px;
+        margin-right: 10px;
+        margin-bottom: 14px;
+        &:hover{
+          color: $color-orange;
+        }
+      }
+    }
+    .footer--section-contact{
+      
+      .contact{
+        margin-bottom: 10px;
+        display: flex;
+        
+        .contact--icon{
+          width: 25px;
+          height: 25px;
+          background-repeat: no-repeat;
+          background-position:center;
+          background-size: 18px;
+          margin-left: -5px;
+          &.mail{
+            background-image: url("./img/icons/mail.svg");
+          }
+          &.phone{
+            background-image: url("./img/icons/phone.svg");
+          }
+          &.wa{
+            background-image: url("./img/icons/whatsapp.svg");
+          }
+          &.loc{
+            background-image: url("./img/icons/location.svg");
+          }
+        }
+        .contact--text{
+          
+          .loc{
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    
+  }
+}
+
+button{
+  width: 120px;
+  padding: 10px;
+  background-color: $color-orange;
+  color: $color-white;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: $font-size-link;
+  border-radius: 50px;
+  border: none;
+  
+  &:hover{
+    background-color: $color-orange-dark;
+  }
+}
+
+
+a{
+  text-decoration: none;
+  color: $color-white;
+  font-weight: bold;
+  
+  &:hover{
+    color: $color-orange;
+  }
+}
+
+h1{
+  font-size: $font-size-h1;
+  font-weight: bolder;
+  color: $color-orange;
+  
+}
+
+h2{
+  font-size: $font-size-h2;
+  font-weight: bolder;
+  color: $color-orange;
+  margin-bottom: 25px;
+}
+
+h3{
+  font-size: $font-size-h3;
+  font-weight: bolder;
+  color: $color-orange;
+  margin-bottom: 15px;
+}
+
+hr{
+  border: 0.5px solid rgba($color: $color-black, $alpha: 0.05);
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.radio-button {
+  position: relative;
+  padding-left: 23px;
+  margin-bottom: 12px;
+  margin-right: 15px;
+  cursor: pointer;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 18px;
+    width: 18px;
+    background-color: $color-white;
+    border-radius: 50%;
+    border: 1px solid rgba($color: $color-grey, $alpha: 0.3);
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+
+  &:hover input ~ .checkmark {
+    background-color: rgba($color: $color-orange, $alpha: .2);
+  }
+
+  input:checked ~ .checkmark {
+    background-color: $color-white;
+    border: 1px solid $color-orange;
+
+    &:after {
+      display: block;
+    }
+  }
+
+  .checkmark:after {
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $color-orange;
+  }
+}
+
+
+  
