@@ -62,6 +62,9 @@
     .content--order-pizza{
       margin-bottom: 100px;
     }
+    .content--order-custom{
+      
+    }
   }
   .content--payment{
     flex: 0 0 300px;
@@ -69,8 +72,13 @@
 }
 
 .pizza{
-  width: 285px;
+  display: flex;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 100px;
+  cursor: pointer;
   .pizza--card{
+    width: 285px;
     height: 155px;
     border-radius: 10px;
     border: 1px solid rgba($color: $color-grey, $alpha: 0.1);
@@ -93,6 +101,10 @@
           display: none;
           text-decoration: line-through;
           color: rgba($color: $color-grey, $alpha: 0.5);
+
+          &.selected{
+            color: rgba($color: $color-white, $alpha: 0.5);  
+          }
         }
         .discounted{
           display: inline;
@@ -109,6 +121,7 @@
     }
     &.selected{
       background-color: $color-orange;
+      color: $color-white;
       &:hover{
         background-color: $color-orange;
       }
@@ -124,11 +137,14 @@
 }
 
 .custom{
-  margin-bottom: 25px;
+  margin-bottom: 40px;
   .custom--label{
     font-size: $font-size-h3;
     font-weight: bold;
     margin-bottom: 10px;;
+  }
+  .custom--option{
+    float: left;
   }
 }
 

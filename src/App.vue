@@ -1,3 +1,90 @@
+<script setup>
+import { ref } from "vue";
+import OrderSuccessModal from "@/components/OrderSuccessModal.vue";
+import pizzaData from "@/assets/json/pizza-list.json";
+import sizeData from "@/assets/json/size-list.json";
+import toppingData from "@/assets/json/topping-list.json";
+
+const pizzas = ref(pizzaData.data);
+const sizes = ref(sizeData.data);
+const toppings = ref(toppingData.data);
+
+const selectedPizza=ref(1);
+const selectedSize=ref(1);
+const selectedToppings=ref([]);
+
+
+const toogleActive=(id)=>{
+  selectedToppings.value=[];
+  selectedSize.value=1;
+  selectedPizza.value=parseInt(id);
+};
+
+const toogleSize=(id)=>{
+  selectedSize.value=parseInt(id);
+};
+
+const checkActive = (actid) =>{
+  if(parseInt(actid)===selectedPizza.value) return "selected";
+};
+
+const checkDiscount = (dis) =>{
+  if(dis) return "discounted";
+};
+
+const checkTopping = (tid) => {
+  const pizza = pizzas.value.find(p => p.id === selectedPizza.value);
+  if (!pizza) return "disabled";
+  return pizza.toppings.includes(tid) ? "" : "disabled";
+};
+
+const toggleToppings = (id) => {
+  const currentPizza = pizzas.value.find(pizza => pizza.id === selectedPizza.value);
+
+  if (!currentPizza) return;
+
+  if (!currentPizza.toppings.includes(id)) {
+    console.log(`Topping ${id} is not available for this pizza`);
+    return;
+  }
+
+  const index = selectedToppings.value.indexOf(id);
+  if (index !== -1) {
+    selectedToppings.value.splice(index, 1);
+  } else {
+    selectedToppings.value.push(id); 
+  }
+};
+
+const getToppingClass = (id) => {
+  return selectedToppings.value.includes(id) ? "selected" : "";
+};
+
+const getTotal  = () => {
+  const pizza = pizzas.value[selectedPizza.value - 1];
+  const size = sizes.value[selectedSize.value - 1];
+  
+  if (!pizza || !size) return 0; 
+  
+  const toppingsCost = selectedToppings.value.reduce((total, toppingId) => {
+    const topping = toppings.value.find(t => t.id === toppingId);
+    return total + (topping ? topping.price : 0);
+  }, 0);
+
+  return pizza.price + size.extra_price + toppingsCost;
+};
+
+const showModal = ref(false);
+
+const openModal = () => {
+  showModal.value = true;
+};
+
+const closeModal = () => {
+  showModal.value = false;
+};
+
+</script>
 
 <template>
 
@@ -25,17 +112,18 @@
       <div class="content--order">
         <div class="content--order-pizza">
           <h2>Choose your pizza</h2>
-          <div class="pizza">
-            <div class="pizza--card">
+          <div class="pizza" v-for="pizza in pizzas" :key="pizza.id" >
+            <div :class="'pizza--card '+checkDiscount(pizza.discount['is_active'])+' '+checkActive(pizza.id)" @click="toogleActive(pizza.id)">
               <div class="pizza--card-picture">
-                <img src="./assets/img/pizza/Cheese Pizza.png" />
+                <img :src="'/src/assets/img/pizza/'+pizza.name +'.png'" />
               </div>
               <div class="pizza--card-label">
                 <div class="pizza--card-label-name">
-                  Pizza Name
+                  {{pizza.name}}
                 </div>
                 <div class="pizza--card-label-price">
-                  $10.00&nbsp; <span class=""> $15.00 </span>
+                  ${{pizza.price}}.00&nbsp; 
+                  <span :class="checkDiscount(pizza.discount['is_active'])+' '+checkActive(pizza.id)"> ${{pizza.discount["final_price"]}} </span>
                 </div>
               </div>
             </div>
@@ -47,34 +135,22 @@
             <div class="custom--label">
               Size
             </div>
-            <div class="custom--option">
-              <label class="radio-button">Small
-                <input type="radio" checked="checked" name="radio">
-                <span class="checkmark"></span>
-              </label>
-              <label class="radio-button">Medium
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-              </label>
-              <label class="radio-button">Large
-                <input type="radio" name="radio">
+            <div class="custom--option" v-for="size in sizes" :key="size.id">
+              <label class="radio-button" @click="toogleSize(size.id)">
+                {{ size.name }}
+                <span v-if="size.extra_price>0" class="extra">(+{{ size.extra_price }}$)</span>
+                <input type="radio" :checked="size.id==selectedSize" name="radio" :id="size.id">
                 <span class="checkmark"></span>
               </label>
             </div>
-          </div>
+          </div><br>
           <div class="custom">
             <div class="custom--label">
               Toppings
             </div>
-            <div class="custom--option">
-              <div class="toppings">
-                One
-              </div>
-              <div class="toppings selected">
-                selected
-              </div>
-              <div class="toppings disabled">
-                disabled
+            <div class="custom--option" v-for="topping in toppings" :key="topping.id" >
+              <div :class="['toppings', checkTopping(topping.id), getToppingClass(topping.id)]" @click="toggleToppings(topping.id)">
+                {{ topping.name }}
               </div>
             </div>
           </div>
@@ -86,26 +162,26 @@
           <div class="card--summary">
             <div class="card--summary-item">
               <div class="card--summary-item-label">
-                Pizza
+                 {{pizzas[selectedPizza-1]['name']}}
               </div>
               <div>
-                8$
+                {{pizzas[selectedPizza-1]['price']}}$
               </div>
             </div>
             <div class="card--summary-item">
               <div class="card--summary-item-label">
-                Size
+                Size - {{ sizes[selectedSize-1]['name'] }}
               </div>
               <div>
-                8$
+                {{sizes[selectedSize-1]['extra_price']}}$
               </div>
             </div>
-            <div class="card--summary-item">
+            <div class="card--summary-item" v-for="topping in selectedToppings" :key="topping">
               <div class="card--summary-item-label">
-                Topping
+                {{toppings[topping-1]['name']}}
               </div>
               <div>
-                8$
+                {{toppings[topping-1]['price']}}$
               </div>
             </div>
             <hr/>
@@ -114,12 +190,13 @@
                 Total Price
               </div>
               <div>
-                <h3>$12.00</h3>
+                <h3>${{ getTotal() }}.00</h3>
               </div>
             </div>
           </div>
           <div class="card--button">
-            <button>Order Now</button>
+            <button @click="openModal">Order Now</button>
+            <OrderSuccessModal :isOpen="showModal" @close="closeModal" />
           </div>
         </div>
       </div>
@@ -187,7 +264,5 @@
 </template>
 
 
-<script setup>
 
-</script>
 

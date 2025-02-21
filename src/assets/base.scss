@@ -157,6 +157,7 @@ button{
   font-size: $font-size-link;
   border-radius: 50px;
   border: none;
+  cursor: pointer;
   
   &:hover{
     background-color: $color-orange-dark;
@@ -205,7 +206,7 @@ hr{
   position: relative;
   padding-left: 23px;
   margin-bottom: 12px;
-  margin-right: 15px;
+  margin-right: 20px;
   cursor: pointer;
   user-select: none;
 
@@ -230,6 +231,10 @@ hr{
       position: absolute;
       display: none;
     }
+  }
+
+  .extra{
+    color: rgba($color: $color-grey, $alpha: 0.5);
   }
 
   &:hover input ~ .checkmark {
