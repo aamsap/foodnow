@@ -147,6 +147,24 @@ body {
   }
 }
 
+.copyright{
+  text-align: center;
+  margin-bottom: 20px;
+  .copy{
+    font-size: 14px;
+  }
+  .right{
+    font-size: 12px;
+  }
+
+  span{
+    color:$color-grey;
+    &:hover{
+      color:$color-orange;
+    }
+  }
+}
+
 button{
   width: 120px;
   padding: 10px;

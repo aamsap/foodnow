@@ -107,7 +107,7 @@ const closeModal = () => {
       <h1>Pizza Order</h1>
     </div>
   </section>
-  
+
   <section class="container">
     <div class="content">
       <div class="content--order">
@@ -261,6 +261,13 @@ const closeModal = () => {
   </section>
 
   <hr/>
+
+  <section class="copyright">
+    <div>
+      <p class="copy">Copyright &copy; 2022 Foodnow. All Right Reserved. Powered by PT. Timedoor Indonesia. | <span>Privacy Policy</span> </p>
+      <p class="right">This site is protected by reCAPTCHA and the Google <span>Privacy Policy</span> and <span>Term of Service </span>apply.</p>
+    </div>
+  </section>
 
 </template>
 
