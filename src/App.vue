@@ -107,6 +107,7 @@ const closeModal = () => {
       <h1>Pizza Order</h1>
     </div>
   </section>
+  
   <section class="container">
     <div class="content">
       <div class="content--order">
@@ -143,7 +144,7 @@ const closeModal = () => {
                 <span class="checkmark"></span>
               </label>
             </div>
-          </div><br>
+          </div>
           <div class="custom">
             <div class="custom--label">
               Toppings
